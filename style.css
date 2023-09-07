@@ -1,0 +1,32 @@
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f4;
+}
+
+.todo-container {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    width: 300px;
+}
+
+#todoList {
+    list-style-type: none;
+    padding: 0;
+}
+
+#todoList li {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 5px 0;
+    cursor: pointer;
+}
+
+#todoList li.completed {
+    text-decoration: line-through;
+}
