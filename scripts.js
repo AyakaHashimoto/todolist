@@ -83,11 +83,11 @@ function addToDo(text, label = '') {
 function showEditArea(li, textNode, labelSpan) {
     document.getElementById('editArea').style.display = 'block';
     document.getElementById('editText').value = textNode.nodeValue;
-    document.getElementById('editLabels').value = labelSpan.textContent;
+    document.getElementById('editLabel').value = labelSpan.textContent;
 
     document.getElementById('saveEdit').onclick = function() {
         textNode.nodeValue = document.getElementById('editText').value;
-        labelSpan.textContent = document.getElementById('editLabels').value;
+        labelSpan.textContent = document.getElementById('editLabel').value;
 
         labelSpan.className = 'todo-label';
         if(!labelSpan.textContent.trim()) { // ラベルが空の場合
@@ -95,7 +95,7 @@ function showEditArea(li, textNode, labelSpan) {
             labelSpan.classList.add('empty-label');
         }
 
-        const newLabel = document.getElementById('editLabels').value;
+        const newLabel = document.getElementById('editLabel').value;
         addLabelToDropdown(newLabel);        
         
         document.getElementById('editArea').style.display = 'none';

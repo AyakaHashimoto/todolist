@@ -13,7 +13,6 @@
         </header>
         <input type="text" id="todoInput" placeholder="新しいTodoを入力...">
         <button id="addTodo">追加</button>
-        <!-- <label for="filterLabels" >ラベルでフィルター</label> -->
         <select id="filterLabels">
             <option value="すべて">すべて</option>
         </select>
@@ -23,7 +22,9 @@
             <div>Todo</div>
             <input type="text" id="editText">
             <div>ラベル</div>
-            <input type="text" id="editLabels" placeholder="例:急ぎ">
+            <input type="text" id="editLabel" placeholder="例:急ぎ">
+            <div>詳細</div>
+            <textarea id="detail"></textarea>
             <div>
                 <button id="saveEdit">保存</button>
                 <button id="cancelEdit">キャンセル</button>
