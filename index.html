@@ -13,7 +13,24 @@
         </header>
         <input type="text" id="todoInput" placeholder="新しいTodoを入力...">
         <button id="addTodo">追加</button>
+        <!-- <label for="filterLabels" >ラベルでフィルター</label> -->
+        <select id="filterLabels">
+            <option value="all">すべて</option>
+            <option value="今日やる">今日やる</option>
+            <option value="急ぎ">急ぎ</option>
+        </select>
+
         <ul id="todoList"></ul>
+        <div id="editArea" style="display: none;">
+            <div>やること</div>
+            <input type="text" id="editText">
+            <div>ラベル</div>
+            <input type="text" id="editLabels" placeholder="今日やる, 急ぎ, ...">
+            <div>
+                <button id="saveEdit">保存</button>
+                <button id="cancelEdit">キャンセル</button>
+            </div>
+        </div>
     </div>
 
     <script src="scripts.js"></script>
