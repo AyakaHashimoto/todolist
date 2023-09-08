@@ -7,6 +7,11 @@ body {
     background-color: #f4f4f4;
 }
 
+header h1 {
+    color: #4b9c4f;
+    text-align: center;
+}
+
 .todo-container {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 20px;
@@ -15,19 +20,65 @@ body {
     width: 400px;
 }
 
+#todoInput {
+    width: 330px;
+    height: 25px;
+    border: 1.5px solid #6d6d6d;
+    margin-bottom: 8px;
+    padding: 3px 5px;
+}
+
+#addTodo {
+    padding: 5px 10px;
+    margin-left: 5px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    border: 1.5px solid #6d6d6d;
+    transition: background-color 0.2s;
+}
+
 #todoList {
     list-style-type: none;
     padding: 0;
 }
 
 #todoList li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 10px;
     border: 1px solid #ddd;
-    padding: 10px;
     margin: 5px 0;
+}
+
+.complete-btn {
+    background-color: #90d493;
+}
+
+#todoList button.complete-btn:hover {
+    background-color: #42a849;
+}
+
+#todoList button.delete-btn:hover {
+    background-color: #ec343d;
 }
 
 #todoList li.completed {
     text-decoration: line-through;
+}
+
+#todoList button {
+    padding: 5px 10px;
+    margin-left: 5px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#todoList button:hover {
+    background-color: #ccc;
 }
 
 .todo-label {
@@ -50,4 +101,56 @@ body {
 
 #filterLabels {
     display: block;
+}
+
+#editArea {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    display: none;
+}
+
+#editArea > div {
+    margin: 3px 0 2px 0;
+    font-size: small;
+}
+
+#editArea input[type="text"] {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box;
+    margin-bottom: 8px ;
+}
+
+#editArea button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 3px;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#editArea button:last-child {
+    margin-right: 0;
+}
+
+#editArea button#saveEdit {
+    background-color: #4b9c4f;
+    color: white;
+    margin-top: 5px;
+}
+
+#editArea button#cancelEdit {
+    background-color: #8a8888;
+    color: white;
+}
+
+#editArea button:hover {
+    opacity: 0.9;
 }

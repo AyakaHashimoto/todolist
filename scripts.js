@@ -30,17 +30,22 @@ function filterTodosByLabel(label) {
 function addToDo(text, label = '') {
     const ul = document.getElementById('todoList');
     const li = document.createElement('li');
-    const complatedBtn = document.createElement('button');
     const textNode = document.createTextNode(text);
-    const editBtn = document.createElement('button');
-    const deleteBtn = document.createElement('button');
     const labelSpan = document.createElement('span');
     const labelText = document.createTextNode(label);
+    const complatedBtn = document.createElement('button');
+    const editBtn = document.createElement('button');
+    const deleteBtn = document.createElement('button');
+
+    // テキストとラベルのグループのためのdiv
+    const textGroup = document.createElement('div');
+    textGroup.className = 'text-group';
+    textGroup.appendChild(textNode);
+    textGroup.appendChild(labelSpan);
 
     // ボタンのグループのためのdiv
     const btnGroup = document.createElement('div');
     btnGroup.className = 'btn-group';
-
     btnGroup.appendChild(complatedBtn);
     btnGroup.appendChild(editBtn);
     btnGroup.appendChild(deleteBtn);
@@ -56,6 +61,7 @@ function addToDo(text, label = '') {
       showEditArea(li, textNode, labelSpan);
     };
     deleteBtn.textContent = '削除';
+    deleteBtn.className = 'delete-btn';
     deleteBtn.onclick = function() {
         ul.removeChild(li);
         saveToLocalStorage();
@@ -68,8 +74,7 @@ function addToDo(text, label = '') {
     }
     labelSpan.appendChild(labelText);
     
-    li.appendChild(textNode);
-    li.appendChild(labelSpan);
+    li.appendChild(textGroup);
     li.appendChild(btnGroup);
     ul.appendChild(li);
 }
