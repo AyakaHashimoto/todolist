@@ -63,6 +63,7 @@ function addToDo(text, label = '') {
     deleteBtn.textContent = '削除';
     deleteBtn.className = 'delete-btn';
     deleteBtn.onclick = function() {
+        checkAndRemoveLabelIfNeeded(label);
         ul.removeChild(li);
         saveToLocalStorage();
     }
@@ -95,8 +96,8 @@ function showEditArea(li, textNode, labelSpan) {
         }
 
         const newLabel = document.getElementById('editLabels').value;
-        addLabelToDropdown(newLabel);
-
+        addLabelToDropdown(newLabel);        
+        
         document.getElementById('editArea').style.display = 'none';
         saveToLocalStorage();
     }
@@ -142,13 +143,25 @@ function checkAndRemoveLabel() {
     saveLabelsToLocalStorage()
 }
 
+function checkAndRemoveLabelIfNeeded(label) {
+    const todos = document.querySelectorAll('#todoList li');
+
+    // 全てのTodoから指定されたラベルを検索し、該当するラベルの数をカウントする
+    const labelCount = [...todos].filter(todo => todo.querySelector('.todo-label').textContent.trim() === label).length;
+
+    if (labelCount === 1) {
+        removeLabelFromDropdown(label);
+    }
+}
+
+
 function saveToLocalStorage() {
     const ul = document.getElementById('todoList');
     const todos = [];
 
     for (let i = 0; i < ul.children.length; i++) {
-        let taskText = ul.children[i].firstChild.nodeValue;
-        let taskLabel = ul.children[i].querySelector('.todo-label').textContent;
+        let taskText = ul.children[i].querySelector('.text-group').firstChild.textContent;
+        let taskLabel = ul.children[i].querySelector('.todo-label').textContent;        
 
         todos.push({
             text: taskText,
