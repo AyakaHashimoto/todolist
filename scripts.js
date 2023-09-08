@@ -19,7 +19,7 @@ function filterTodosByLabel(label) {
     todos.forEach(todo => {
         const todoLabel = todo.querySelector('.todo-label').textContent.trim();
 
-        if (label === "all" || todoLabel === label) {
+        if (label === "すべて" || todoLabel === label) {
             todo.style.display = "";
         } else {
             todo.style.display = "none";
@@ -37,7 +37,16 @@ function addToDo(text, label = '') {
     const labelSpan = document.createElement('span');
     const labelText = document.createTextNode(label);
 
-    complatedBtn.textContent = '完了';
+    // ボタンのグループのためのdiv
+    const btnGroup = document.createElement('div');
+    btnGroup.className = 'btn-group';
+
+    btnGroup.appendChild(complatedBtn);
+    btnGroup.appendChild(editBtn);
+    btnGroup.appendChild(deleteBtn);
+
+    complatedBtn.textContent = '完了'
+    complatedBtn.className = 'complete-btn';
     complatedBtn.onclick = function() {
         li.classList.toggle('completed');
         saveToLocalStorage();
@@ -61,10 +70,8 @@ function addToDo(text, label = '') {
     
     li.appendChild(textNode);
     li.appendChild(labelSpan);
+    li.appendChild(btnGroup);
     ul.appendChild(li);
-    li.appendChild(complatedBtn);
-    li.appendChild(editBtn);
-    li.appendChild(deleteBtn);
 }
 
 function showEditArea(li, textNode, labelSpan) {
@@ -82,6 +89,9 @@ function showEditArea(li, textNode, labelSpan) {
             labelSpan.classList.add('empty-label');
         }
 
+        const newLabel = document.getElementById('editLabels').value;
+        addLabelToDropdown(newLabel);
+
         document.getElementById('editArea').style.display = 'none';
         saveToLocalStorage();
     }
@@ -90,7 +100,42 @@ function showEditArea(li, textNode, labelSpan) {
     }   
   }
 
-  
+function addLabelToDropdown(label) {
+    const dropdown = document.getElementById('filterLabels');
+
+    // ラベルの存在確認
+    const existingOption = [...dropdown.options].some(option => option.value === label);
+    if(!existingOption) {
+        const option = document.createElement('option');
+        option.value = label;
+        option.textContent = label;
+        dropdown.appendChild(option);
+    }
+    saveLabelsToLocalStorage()
+}
+
+function removeLabelFromDropdown(label) {
+    const dropdown = document.getElementById('filterLabels');
+    const optionToRemove = [...dropdown.options].find(option => option.value === label);
+
+    if (optionToRemove) {
+        dropdown.removeChild(optionToRemove);
+    }
+    saveLabelsToLocalStorage()
+}
+
+function checkAndRemoveLabel() {
+    const todos = document.querySelectorAll('#todoList li');
+    const allLabels = [...todos].map(todo => todo.querySelector('.todo-label').textContent.trim());
+    const dropdownLabels = [...document.getElementById('filterLabels').options].map(option => option.value).slice(1); // "すべて"を除外
+
+    dropdownLabels.forEach(dropdownLabel => {
+        if (!allLabels.includes(dropdownLabel)) {
+            removeLabelFromDropdown(dropdownLabel);
+        }
+    });
+    saveLabelsToLocalStorage()
+}
 
 function saveToLocalStorage() {
     const ul = document.getElementById('todoList');
@@ -123,4 +168,29 @@ function loadFromLocalStorage() {
     }
 }
 
+function saveLabelsToLocalStorage() {
+    const dropdown = document.getElementById('filterLabels');
+    const labels = [...dropdown.options].map(option => option.value);
+
+    // "すべて" は除外する
+    const filteredLabels = labels.filter(label => label !== "すべて");
+
+    localStorage.setItem('labels', JSON.stringify(filteredLabels));
+}
+
+function loadLabelsFromLocalStorage() {
+    const savedLabels = JSON.parse(localStorage.getItem('labels'));
+    if (savedLabels && savedLabels.length > 0) {
+        const dropdown = document.getElementById('filterLabels');
+        
+        savedLabels.forEach(label => {
+            const option = document.createElement('option');
+            option.value = label;
+            option.textContent = label;
+            dropdown.appendChild(option);
+        });
+    }
+}
+
 loadFromLocalStorage();
+loadLabelsFromLocalStorage();
