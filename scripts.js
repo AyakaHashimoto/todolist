@@ -124,6 +124,10 @@ function showEditArea(li, textNode, labelSpan) {
 
 function addLabelToDropdown(label) {
     try {
+        if (!label.trim()) {
+            return;
+        }
+        
         const dropdown = document.getElementById('filterLabels');
     
         // ラベルの存在確認
